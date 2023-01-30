@@ -1,58 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './App.scss';
+import { login, logout, selectUser } from './features/user/userSlice';
+import Login from './views/Components/Login/Login';
+import Quora from './views/Components/Quora/Quora';
+import { auth } from'./backend/database/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import Loading from './views/Components/Loading/Loading';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+
+	// useSelector란 리덕스의 상태값을 조회하기위한 훅 함수이다
+	// 여기서는 userSlice.js에서 state => state.user.user를 가져오므로 현재 state에 createSlice에 따른 user의 상태값을 넣어주는 것이다
+	const user = useSelector(state => state.user.user);
+	const dispatch = useDispatch();
+	const [isLoaded, setIsLoaded] = useState(false);
+
+	useEffect(() => {
+		// 현재 로그인 상태의 변화를 체크한다
+		onAuthStateChanged(auth, (authUser) => {
+
+			// 로그인 시도에 성공한 상태이면?
+			if(authUser){
+				// 서버에서 받아온 로그인한 유저의 상태값을 적용한 후 전송한다.
+				dispatch(login({
+					uid: authUser.uid,
+					photo: authUser.photoURL,
+					displayName: authUser.displayName,
+					email: authUser.email,
+				}));	
+				console.log(authUser);
+			} else {
+				dispatch(logout());
+			}
+
+			setIsLoaded(true);
+		});
+	}, [dispatch]);
+
+	return (
+		<div className="App">
+			{			
+				isLoaded ? (user ? (<Quora />) : (<Login />)) : <Loading />
+			}
+		</div>
+	);
 }
 
 export default App;

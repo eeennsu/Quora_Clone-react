@@ -1,0 +1,222 @@
+.feed{
+    display: flex;
+    flex-direction: column;
+    flex: 0.6;
+    padding: 1rem;
+    padding-top: 0;
+    
+    hr{
+        margin-top: 2rem;
+        border: 0;
+        height: 1px;
+        background: #333;
+        background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    }
+}
+
+.quoraBox{
+    padding: 22px;
+    border: 1px solid $light-color;
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 6px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    .quoraBox_info{
+        display: flex;
+        align-items: center;
+        
+        h5{
+            color: $font-color;
+            margin-left: 10px;
+        }
+    }
+
+    .quoraBox_quora{
+        margin-top: 15px;
+
+        p{
+            font-weight: bold;
+        }
+    }
+
+    &:hover{
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+}
+
+.post{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: column;
+    padding: 22px;
+    background-color: white;
+    border: 2px solid $light-color;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    box-shadow: 0 6px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: 0.5s ease;
+
+    .post_btnAnwser, .btn_delete{
+        margin-left: auto;
+        outline: none;
+        border: none;
+        background-color: lightgoldenrodyellow;
+        color: yellowgreen;
+        border-radius: 10px;
+        padding: 8px;
+        cursor: pointer;
+
+        &:hover{
+            color: chocolate;
+        }
+    }
+
+    .post_header{
+        display: flex;
+        align-items: center;
+        justify-content: start;      
+        position: relative;
+
+        h5{
+            color: forestgreen;
+            margin-left: 15px;
+            margin-right: 15px;
+            font-size: 1.3em;
+            cursor: pointer;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+
+        .btn_delete{      
+            background-color: darksalmon;
+            color: white;
+   
+            &:hover{
+                color: black;
+            }
+        }
+    }
+
+    .post_body{
+        display: flex;
+        flex-direction: column;
+
+        .post_question{
+            display: flex;
+            justify-content: space-around;    
+            
+            p{
+                margin-top: 10px;
+                padding: 5px 15px;
+                font-style: italic;
+            }
+        }
+        
+        img{
+            object-fit: contain;
+            border-radius: 10px;
+            max-width: 550px;
+            margin: 10px 0;
+        }
+    }
+
+    .post_footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        
+        .MuiSvgIcon-root{           
+            cursor: pointer;
+            color: black;
+
+            &:not(:last-child){
+                margin-right: 40px;
+            }
+
+            &:hover{
+                color: chocolate;
+            }
+        }
+
+        .post_footer_leftAction{
+            display: flex;
+            justify-content: space-around;
+            border-radius: 33px;
+            padding: 5px;
+            background-color: lightgoldenrodyellow;
+            align-items: center;          
+        }       
+    }
+
+    &:hover{
+        border-color: black;
+    }
+}
+
+.modal_question{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    h1{
+        color: grey;
+        padding: 10px;
+    }
+
+    p{
+        color: cadetblue;
+        font-size: small;
+
+        .name, .time{
+            color: darkslategrey;
+            font-weight: bold;
+        }
+    }
+}
+
+.modal_answer {
+    display: flex;
+    padding-top: 20px;
+    flex: 1;
+
+    textarea{
+        width: 100%;
+        height: 250px;
+        margin: 5px 15px;
+        font-size: 16px;
+        color: black;
+        border-radius: 1rem;
+        padding: 10px;
+    }
+}
+
+.modal_buttons{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 5px;
+    border-top: 1px solid lightgray;
+
+    .add, .close{
+        border: none;
+        outline: none;
+        margin-top: 5px;
+        color: white;        
+        padding: 12px;
+        border-radius: 5px;   
+    }
+
+    .add{
+        background-color: darkslategrey;
+        margin-right: 10px;
+    }
+
+    .close{
+        background-color: tomato;
+    }
+}
